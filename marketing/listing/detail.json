@@ -1,7 +1,0 @@
-{
-  "navigationBarTitleText": "接龙详情",
-  "enablePullDownRefresh": true,
-  "usingComponents": {
-    "poster": "wxa-plugin-canvas/poster"
-  }
-}

@@ -80,61 +80,6 @@
     "chooseAddress",
     "chooseLocation"
   ],
-  "subpackages": [
-    {
-      "root": "marketing",
-      "name": "marketing",
-      "pages": [
-        "listing/index",
-        "listing/detail",
-        "listing/edit"
-      ]
-    },
-    {
-      "root": "game",
-      "name": "game",
-      "pages": [
-        "numberBomb/index"
-      ]
-    },
-    {
-      "root": "packageStreamMedia",
-      "name": "packageStreamMedia",
-      "pages": [
-        "pages/videoCall/videoCall",
-        "pages/live-anchor/index",
-        "pages/live-anchor/list",
-        "pages/live-client/list",
-        "pages/live-client/client"
-      ]
-    },
-    {
-      "root": "packageCps",
-      "name": "packageCps",
-      "pages": [
-        "pages/goods-details/cps-jd",
-        "pages/goods-details/cps-pdd",
-        "pages/goods-details/cps-taobao",
-        "pages/order-list/cps"
-      ]
-    },
-    {
-      "root": "packageFx",
-      "name": "packageFx",
-      "pages": [
-        "pages/index/index",
-        "pages/hehuorenfenxiao/index",
-        "pages/hehuorenfenxiao/fxmember",
-        "pages/apply/index",
-        "pages/apply/form",
-        "pages/myusers/index",
-        "pages/commisionLog/index",
-        "pages/report/team",
-        "pages/report/city",
-        "pages/myusers/myusers-detail"
-      ]
-    }
-  ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
