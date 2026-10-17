@@ -1,6 +1,7 @@
 const WXAPI = require('apifm-wxapi')
 const TOOLS = require('../../utils/tools.js')
 const AUTH = require('../../utils/auth')
+const CONFIG = require('../../config.js')
 const APP = getApp()
 
 Page({
@@ -54,12 +55,8 @@ Page({
     }
   },
   readConfigVal() {
-    const mallName = wx.getStorageSync('mallName')
-    if (!mallName) {
-      return
-    }
     wx.setNavigationBarTitle({
-      title: mallName
+      title: CONFIG.mallName
     })
   },
   async initBanners(){
@@ -131,13 +128,13 @@ Page({
   },
   onShareAppMessage: function() {
     return {
-      title: '"' + wx.getStorageSync('mallName') + '" ' + wx.getStorageSync('share_profile'),
+      title: '"' + CONFIG.mallName + '" ' + wx.getStorageSync('share_profile'),
       path: '/pages/index/index'
     }
   },
   onShareTimeline() {
     return {
-      title: '"' + wx.getStorageSync('mallName') + '" ' + wx.getStorageSync('share_profile'),
+      title: '"' + CONFIG.mallName + '" ' + wx.getStorageSync('share_profile'),
     }
   },
   onReachBottom: function() {
