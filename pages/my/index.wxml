@@ -71,29 +71,20 @@
     </view>
   </view>
 
-  <!-- 优惠券 / 核销 -->
+  <!-- 常用功能（无分类标题，平铺展示） -->
   <view class="other-section">
     <navigator url="/pages/coupons/index" class="menu-item">
       <view class="menu-label">优惠券</view>
+      <text class="arrow">›</text>
+    </navigator>
+    <navigator url="/pages/select-address/index" class="menu-item">
+      <view class="menu-label">收货地址</view>
       <text class="arrow">›</text>
     </navigator>
     <view wx:if="{{canHX}}" class="menu-item" bind:tap="scanOrderCode">
       <view class="menu-label">扫码核销</view>
       <text class="arrow">›</text>
     </view>
-  </view>
-
-  <!-- 其他功能 -->
-  <view class="other-section">
-    <view class="section-title">其他功能</view>
-    <navigator url="/pages/my/info-menu" class="menu-item">
-      <view class="menu-label">个人信息</view>
-      <text class="arrow">›</text>
-    </navigator>
-    <navigator url="/pages/help/index" class="menu-item">
-      <view class="menu-label">帮助中心</view>
-      <text class="arrow">›</text>
-    </navigator>
     <view wx:if="{{ customerServiceType == 'QW' }}" class="menu-item" bind:tap="customerService">
       <view class="menu-label">联系客服</view>
       <text class="arrow">›</text>
