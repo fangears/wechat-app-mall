@@ -274,19 +274,6 @@ Page({
     this.setData({
       btnLoading: true
     })
-    // 检测实名认证状态
-    if (wx.getStorageSync('needIdCheck') == 1) {
-      const res = await WXAPI.userDetail(wx.getStorageSync('token'))
-      if (res.code == 0 && !res.data.base.isIdcardCheck) {
-        wx.navigateTo({
-          url: '/pages/idCheck/index',
-        })
-        this.setData({
-          btnLoading: false
-        })
-        return
-      }
-    }
     const subscribe_ids = wx.getStorageSync('subscribe_ids')
     if (subscribe_ids) {
       wx.requestSubscribeMessage({

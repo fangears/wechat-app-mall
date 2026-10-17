@@ -1,6 +1,0 @@
-{
-  "usingComponents": {
-    "goods-pop": "/components/goods-pop/index"
-  },
-  "navigationBarTitleText": "历史购买记录"
-}

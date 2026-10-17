@@ -358,7 +358,7 @@
     </view>
   </van-cell>
   <van-button wx:if="{{shopType =='addShopCar'}}" bindtap="addShopCar" type="danger" block>加入购物车</van-button>
-  <van-button wx:if="{{shopType =='tobuy' || shopType =='toPingtuan'}}" data-shopType="{{shopType}}" bindtap="buyNow"
+  <van-button wx:if="{{shopType =='tobuy'}}" data-shopType="{{shopType}}" bindtap="buyNow"
     type="danger" block>立即购买</van-button>
 </van-popup>
 

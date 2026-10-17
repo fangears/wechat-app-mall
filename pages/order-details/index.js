@@ -40,15 +40,17 @@ Page({
       }
       const nextAction = res.data[0].nextAction
       if(!nextAction) {
-        wx.navigateTo({
-          url: '/pages/asset/index',
+        wx.showModal({
+          content: '该笔支付存在资金变动记录，如有疑问请联系客服',
+          showCancel: false
         })
         return
       }
       const _nextAction = JSON.parse(nextAction)
       if (_nextAction.type != 0) {
-        wx.navigateTo({
-          url: '/pages/asset/index',
+        wx.showModal({
+          content: '该笔支付存在资金变动记录，如有疑问请联系客服',
+          showCancel: false
         })
         return
       }

@@ -59,7 +59,7 @@ App({
         wx.hideToast()
       }
     })
-    WXAPI.queryConfigBatch('mallName,WITHDRAW_MIN,ALLOW_SELF_COLLECTION,order_hx_uids,subscribe_ids,share_profile,adminUserIds,goodsDetailSkuShowType,shopMod,needIdCheck,balance_pay_pwd,shipping_address_gps,shipping_address_region_level,shopping_cart_vop_open,cps_open,recycle_open,categoryMod,hide_reputation,show_seller_number,show_goods_echarts,show_buy_dynamic,goods_search_show_type,show_3_seller,show_quan_exchange_score,show_score_exchange_growth,show_score_sign,fx_subscribe_ids,share_pic,orderPeriod_open,order_pay_user_balance,wxpay_api_url,sphpay_open,fx_type,invoice_subscribe_ids,zt_open_hx,withdrawal,customerServiceChatCorpId,customerServiceChatUrl,invoice_open,alipay,comment_subscribe_ids,notice_subscribe_ids,hidden_goods_index,create_order_ext,needBindMobile,invoice_share_pic,hot_search_words,gameNumberBomb_share_pic,quehuo_subscribe_ids,coupon_subscribe_ids').then(res => {
+    WXAPI.queryConfigBatch('mallName,ALLOW_SELF_COLLECTION,order_hx_uids,subscribe_ids,share_profile,adminUserIds,goodsDetailSkuShowType,balance_pay_pwd,shipping_address_gps,shipping_address_region_level,show_seller_number,orderPeriod_open,order_pay_user_balance,wxpay_api_url,sphpay_open,zt_open_hx,withdrawal,customerServiceChatCorpId,customerServiceChatUrl,alipay,comment_subscribe_ids,notice_subscribe_ids,hidden_goods_index,create_order_ext,needBindMobile,quehuo_subscribe_ids,coupon_subscribe_ids').then(res => {
       if (res.code == 0) {
         res.data.forEach(config => {
           wx.setStorageSync(config.key, config.value)
@@ -91,35 +91,6 @@ App({
   },
 
   onShow (e) {
-    // 保存邀请人
-    if (e && e.query && e.query.inviter_id) {
-      wx.setStorageSync('referrer', e.query.inviter_id)
-      if (e.shareTicket) {
-        wx.getShareInfo({
-          shareTicket: e.shareTicket,
-          success: res => {
-            wx.login({
-              success(loginRes) {
-                if (loginRes.code) {
-                  WXAPI.shareGroupGetScore(
-                    loginRes.code,
-                    e.query.inviter_id,
-                    res.encryptedData,
-                    res.iv
-                  ).then(_res => {
-                    console.log(_res)
-                  }).catch(err => {
-                    console.error(err)
-                  })
-                } else {
-                  console.error('登录失败！' + loginRes.errMsg)
-                }
-              }
-            })
-          }
-        })
-      }
-    }
     // 自动登录
     AUTH.checkHasLogined().then(isLogined => {
       if (!isLogined) {
@@ -127,9 +98,6 @@ App({
         if (CONFIG.openIdAutoRegister) {
           // 进行登陆，用户不存在则注册
           AUTH.authorize().then( aaa => {
-            if (CONFIG.bindSeller) {
-              AUTH.bindSeller()
-            }
             this.getUserApiInfo().then(() => {
               if (this.loginOK) {
                 this.loginOK()
@@ -141,9 +109,6 @@ App({
           AUTH.login20241025().then( res => {
             if (res.code == 0) {
               // 登陆成功
-              if (CONFIG.bindSeller) {
-                AUTH.bindSeller()
-              }
               this.getUserApiInfo().then(() => {
                 if (this.loginOK) {
                   this.loginOK()
@@ -159,9 +124,6 @@ App({
         }
       } else {
         // 已登录
-        if (CONFIG.bindSeller) {
-          AUTH.bindSeller()
-        }
         this.getUserApiInfo()
       }
     })
@@ -185,7 +147,6 @@ App({
   },
   globalData: {
     isConnected: true,
-    sdkAppID: CONFIG.sdkAppID,
     apiUserInfoMap: undefined, // 当前登陆用户信息: base/ext/idcard/saleDistributionTeam
   }
 })

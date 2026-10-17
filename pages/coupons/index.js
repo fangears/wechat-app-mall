@@ -357,8 +357,9 @@ Page({
     this.setData({
       paymentShow: false
     })
-    wx.redirectTo({
-      url: '/pages/asset/index',
+    wx.showToast({
+      title: '领取成功',
+      icon: 'success'
     })
   },
   paymentCancel() {
