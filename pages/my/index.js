@@ -3,52 +3,31 @@ const AUTH = require('../../utils/auth')
 const TOOLS = require('../../utils/tools.js')
 const CONFIG = require('../../config.js')
 Page({
-	data: {
-    balance:0.00,
-    freeze:0,
-    score:0,
-    growth:0,
-    score_sign_continuous:0,
-    rechargeOpen: false, // 是否开启充值[预存]功能
-
+  data: {
     // 用户订单统计数据
     count_id_no_confirm: 0,
     count_id_no_pay: 0,
     count_id_no_reputation: 0,
     count_id_no_transfer: 0,
     nick: undefined,
-    cardsExpanded: false, // 会员卡展开状态
-    
-    // 会员等级配置（根据不同等级显示不同图标和样式）
-    vipLevelConfig: {
-      1: { icon: '🥇', name: '黄金会员' },
-      2: { icon: '💎', name: '白金会员' },
-      3: { icon: '💠', name: '钻石会员' },
-      4: { icon: '👑', name: '至尊会员' },
-      5: { icon: '🔱', name: '皇冠会员' }
-    }
   },
-	onLoad() {
+  onLoad() {
     this.readConfigVal()
     // 补偿写法
     getApp().configLoadOK = () => {
       this.readConfigVal()
     }
-	},
+  },
   onShow() {
     AUTH.checkHasLogined().then(isLogined => {
       if (isLogined) {
         this.getUserApiInfo();
-        this.getUserAmount();
         this.orderStatistics();
-        this.cardMyList();
         TOOLS.showTabBarBadge();
       } else {
         getApp().loginOK = () => {
           this.getUserApiInfo();
-          this.getUserAmount();
           this.orderStatistics();
-          this.cardMyList();
           TOOLS.showTabBarBadge();
         }
       }
@@ -57,14 +36,6 @@ Page({
   readConfigVal() {
     this.setData({
       order_hx_uids: wx.getStorageSync('order_hx_uids'),
-      cps_open: wx.getStorageSync('cps_open'),
-      recycle_open: wx.getStorageSync('recycle_open'),
-      show_3_seller: wx.getStorageSync('show_3_seller'),
-      show_quan_exchange_score: wx.getStorageSync('show_quan_exchange_score'),
-      show_score_exchange_growth: wx.getStorageSync('show_score_exchange_growth'),
-      show_score_sign: wx.getStorageSync('show_score_sign'),
-      fx_type: wx.getStorageSync('fx_type'),
-      invoice_open: wx.getStorageSync('invoice_open'),
       customerServiceType: CONFIG.customerServiceType
     })
   },
@@ -80,37 +51,8 @@ Page({
       if (this.data.order_hx_uids && this.data.order_hx_uids.indexOf(res.data.base.id) != -1) {
         _data.canHX = true // 具有扫码核销的权限
       }
-      if (res.data.peisongMember && res.data.peisongMember.status == 1) {
-        _data.memberChecked = false
-      } else {
-        _data.memberChecked = true
-      }
       this.setData(_data);
     }
-  },
-  async memberCheckedChange() {
-    const res = await WXAPI.peisongMemberChangeWorkStatus(wx.getStorageSync('token'))
-    if (res.code != 0) {
-      wx.showToast({
-        title: res.msg,
-        icon: 'none'
-      })
-    } else {
-      this.getUserApiInfo()
-    }
-  },
-  getUserAmount: function () {
-    var that = this;
-    WXAPI.userAmount(wx.getStorageSync('token')).then(function (res) {
-      if (res.code == 0) {
-        that.setData({
-          balance: res.data.balance.toFixed(2),
-          freeze: res.data.freeze.toFixed(2),
-          score: res.data.score,
-          growth: res.data.growth
-        });
-      }
-    })
   },
   handleOrderCount: function (count) {
     return count > 99 ? '99+' : count;
@@ -131,16 +73,6 @@ Page({
           count_id_no_transfer: this.handleOrderCount(count_id_no_transfer),
         })
       }
-    })
-  },
-  goAsset: function () {
-    wx.navigateTo({
-      url: "/pages/asset/index"
-    })
-  },
-  goScore: function () {
-    wx.navigateTo({
-      url: "/pages/score/index"
     })
   },
   goOrder: function (e) {
@@ -170,22 +102,6 @@ Page({
         })
       }
     })
-  },
-  gogrowth() {
-    wx.navigateTo({
-      url: '/pages/score/growth',
-    })
-  },
-  async cardMyList() {
-    const res = await WXAPI.cardMyList(wx.getStorageSync('token'))
-    if (res.code == 0) {
-      const myCards = res.data.filter(ele => { return ele.status == 0 })
-      if (myCards.length > 0) {
-        this.setData({
-          myCards: res.data
-        })
-      }
-    }
   },
   editNick() {
     this.setData({
@@ -247,11 +163,6 @@ Page({
     })
     this.getUserApiInfo()
   },
-  goUserCode() {
-    wx.navigateTo({
-      url: '/pages/my/user-code',
-    })
-  },
   customerService() {
     wx.openCustomerServiceChat({
       extInfo: {url: wx.getStorageSync('customerServiceChatUrl')},
@@ -275,11 +186,6 @@ Page({
   hideNickModal() {
     this.setData({
       nickShow: false
-    })
-  },
-  toggleCards() {
-    this.setData({
-      cardsExpanded: !this.data.cardsExpanded
     })
   },
 })
