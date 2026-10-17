@@ -24,12 +24,12 @@ async function showTabBarBadge(noTabBarPage){
     if (number == 0) {
       // 删除红点点
       wx.removeTabBarBadge({
-        index: 3
+        index: 1
       })
     } else {
       // 显示红点点
       wx.setTabBarBadge({
-        index: 3,
+        index: 1,
         text: number + ''
       })
     }

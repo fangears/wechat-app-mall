@@ -270,7 +270,7 @@
         <text class="function-icon">📄</text>
         <view class="function-label">开票记录</view>
       </navigator>
-      <navigator url="/pages/coupons/index" open-type="switchTab" class="function-item">
+      <navigator url="/pages/coupons/index" class="function-item">
         <text class="function-icon">🎫</text>
         <view class="function-label">优惠券</view>
       </navigator>
