@@ -5,5 +5,6 @@ module.exports = {
   merchantId: 951, // 商户ID，可在后台工厂设置-->商户信息查看
   customerServiceType: 'QW', // 客服类型，QW为企业微信，需要在后台系统参数配置企业ID和客服URL，XCX 为小程序的默认客服
   openIdAutoRegister: true, // 用户打开小程序的时候自动注册新用户【用户不存在的时候】
+  showStartPage: false, // 启动引导页开关：false=启动直接进首页；true=展示引导轮播页
   couponUseMultiple: true, // 下单是否允许使用多张优惠券
 }

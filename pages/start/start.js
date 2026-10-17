@@ -16,6 +16,13 @@ Page({
 
   },
   async readConfigVal() {
+    // 启动引导页开关：false 直接进首页；true 展示引导轮播（见 config.js）
+    if (!CONFIG.showStartPage) {
+      wx.switchTab({
+        url: '/pages/index/index',
+      })
+      return
+    }
     const mallName = wx.getStorageSync('mallName')
     if (!mallName) {
       return
